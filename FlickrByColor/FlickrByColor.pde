@@ -27,15 +27,21 @@ void draw() {
   render(randomX, randomY);
 }
 
-Tile imageFromColor(int _color0, int _color1, int _weight0, int _weight1) {
+Tile imageFromColor(int _color0, int _color1, int _color2, int _color3, int _color4) {
   // Flickr photo URLS: https://www.flickr.com/services/api/misc.urls.html
 
   String url = "http://labs.tineye.com/multicolr/rest/color_search/?";
   String params = "return_metadata=<serverID%2f><photoID%2f><farmID%2f><imageHeight%2f><imageWidth%2f>";
   params += "&colors[0]=" + hex(_color0, 6);
   params += "&colors[1]=" + hex(_color1, 6);
-  params += "&weights[0]=" + _weight0;
-  params += "&weights[1]=" + _weight1;
+  params += "&colors[2]=" + hex(_color1, 6);
+  params += "&colors[3]=" + hex(_color1, 6);
+  params += "&colors[4]=" + hex(_color1, 6);
+  params += "&weights[0]=" + 20;
+  params += "&weights[1]=" + 20;
+  params += "&weights[2]=" + 20;
+  params += "&weights[3]=" + 20;
+  params += "&weights[4]=" + 20;
   params += "&limit=" + 10;
 
   JSONObject tineye = loadJSONObject(url + params);
@@ -83,11 +89,12 @@ int snappedY(int _y) {
 void render(int _x, int _y) {
   PImage segment = source.get(snappedX(_x), snappedY(_y), segmentWidth, segmentHeight);
   segment.loadPixels();
-  int random1 = int(random(0, segment.pixels.length));
-  int random2 = int(random(0, segment.pixels.length));
-  int color1 = segment.pixels[random1];
-  int color2 = segment.pixels[random2];
-  Tile tile = imageFromColor(color1, color2, 50, 50);
+  int color0 = segment.pixels[int(random(0, segment.pixels.length))];
+  int color1 = segment.pixels[int(random(0, segment.pixels.length))];
+  int color2 = segment.pixels[int(random(0, segment.pixels.length))];
+  int color3 = segment.pixels[int(random(0, segment.pixels.length))];
+  int color4 = segment.pixels[int(random(0, segment.pixels.length))];
+  Tile tile = imageFromColor(color0, color1, color2, color3, color4);
   tile.load("tineye");
   image(tile.image, snappedX(_x), snappedY(_y), tile.width, tile.height);
 }

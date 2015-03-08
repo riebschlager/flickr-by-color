@@ -9,7 +9,7 @@ class Tile {
   Tile(String _flickrUrl, String _tineyeUrl, int _width, int _height) {
     this.flickrUrl = _flickrUrl;
     this.tineyeUrl = _tineyeUrl;
-    float divisor = random(1, 4);
+    float divisor = random(2, 4);
     this.width = floor(_width / divisor);
     this.height = floor(_height / divisor);
   }
