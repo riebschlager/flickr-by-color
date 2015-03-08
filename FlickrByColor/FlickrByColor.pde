@@ -15,7 +15,7 @@ ArrayList<PVector> gridPoints = new ArrayList<PVector>();
 void setup() {
   size(1920, 1080);
 
-  source = loadImage("cab.jpg");
+  source = loadImage("van.jpg");
   image(source, 0, 0);
 
   for (int ix = 0; ix < source.width; ix += segmentWidth) {
