@@ -1,3 +1,7 @@
+import java.util.Date;
+import java.util.Calendar;
+import java.sql.Timestamp;
+
 PImage[][] images;
 int startColor = 0xFF0000FF;
 int endColor = 0xFF00FFFF;
@@ -11,7 +15,7 @@ ArrayList<PVector> gridPoints = new ArrayList<PVector>();
 void setup() {
   size(1920, 1080);
 
-  source = loadImage("beach.jpg");
+  source = loadImage("cab.jpg");
   image(source, 0, 0);
 
   for (int ix = 0; ix < source.width; ix += segmentWidth) {
@@ -95,11 +99,22 @@ void render(int _x, int _y) {
   int color3 = segment.pixels[int(random(0, segment.pixels.length))];
   int color4 = segment.pixels[int(random(0, segment.pixels.length))];
   Tile tile = imageFromColor(color0, color1, color2, color3, color4);
-  tile.load("tineye");
-  image(tile.image, snappedX(_x), snappedY(_y), tile.width, tile.height);
+  tile.load("flickr");
+  pushMatrix();
+  translate(snappedX(_x), snappedY(_y));
+  rotate(HALF_PI / 2);
+  image(tile.image, 0, 0, tile.width, tile.height);
+  popMatrix();
 }
 
 void mousePressed() {
   render(mouseX, mouseY);
+}
+
+void keyPressed() {
+  if (key == 's') {
+    long unixTime = System.currentTimeMillis() / 1000L;
+    saveFrame("output/" + unixTime + ".png");
+  }
 }
 
