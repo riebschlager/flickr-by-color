@@ -15,7 +15,7 @@ ArrayList<PVector> gridPoints = new ArrayList<PVector>();
 void setup() {
   size(1920, 1080);
 
-  source = loadImage("van.jpg");
+  source = loadImage("grad.jpg");
   image(source, 0, 0);
 
   for (int ix = 0; ix < source.width; ix += segmentWidth) {
@@ -99,9 +99,9 @@ void render(int _x, int _y) {
   int color3 = segment.pixels[int(random(0, segment.pixels.length))];
   int color4 = segment.pixels[int(random(0, segment.pixels.length))];
   Tile tile = imageFromColor(color0, color1, color2, color3, color4);
-  tile.load("flickr");
+  tile.load("tineye");
   pushMatrix();
-  translate(snappedX(_x), snappedY(_y));
+  translate(snappedX(_x), snappedY(_y) - 60);
   rotate(HALF_PI / 2);
   image(tile.image, 0, 0, tile.width, tile.height);
   popMatrix();
